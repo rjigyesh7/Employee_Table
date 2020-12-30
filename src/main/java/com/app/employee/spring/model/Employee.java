@@ -25,13 +25,13 @@ public class Employee {
 	private String emailId;
 	
 	@Column(name = "contact_number")
-	private int contactNumber;
+	private long contactNumber;
 	
 	public Employee() {
 		
 	}
 	
-	public Employee(String firstName, String lastName, String emailId, int contactNumber) {
+	public Employee(String firstName, String lastName, String emailId, long contactNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -62,10 +62,10 @@ public class Employee {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public int getContactNumber() {
+	public long getContactNumber() {
 		return contactNumber;
 	}
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(long contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 	
