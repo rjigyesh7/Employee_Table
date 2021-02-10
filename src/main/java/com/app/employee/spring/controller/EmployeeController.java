@@ -6,10 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,27 +20,28 @@ import com.app.employee.spring.exception.ResourceNotFoundException;
 import com.app.employee.spring.model.Employee;
 import com.app.employee.spring.repository.EmployeeRepository;
 
+@CrossOrigin(origins = "htts://localhost:3000")
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api")
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
 	// get all the employees
-	@GetMapping("/employees")
+	@GetMapping("/getAllEmployees")
 	public List<Employee> getAllEmployees(){
 		return employeeRepository.findAll();
 	}
 
 	// create employee rest api
-	@PostMapping("/employees")
+	/* @PostMapping("/addEmployee")
 	public Employee createEmployee(@RequestBody Employee employee) {
 		return employeeRepository.save(employee);
-	}
+	} */
 
 	//get employee by id rest api
-	@GetMapping("/employees/{id}")
+	@GetMapping("/employee/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) {
 		
 		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with ID: " + id));
@@ -48,7 +50,7 @@ public class EmployeeController {
 	
 	// update employee rest api
 	
-	@PutMapping("/employees/{id}")
+	@PutMapping("/employee/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable int id, @RequestBody Employee employeeDetails) {
 		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with ID: " + id));
 		
@@ -62,7 +64,7 @@ public class EmployeeController {
 	}
 	
 	//delete employee rest api
-	@DeleteMapping("/employees/{id}")
+	@DeleteMapping("/employee/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable int id){
 		
 		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with ID: " + id));
